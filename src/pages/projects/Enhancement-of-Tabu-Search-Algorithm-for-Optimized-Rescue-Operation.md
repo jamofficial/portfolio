@@ -19,7 +19,7 @@ githubLinks:
     "https://github.com/jhaimecando27/Thesis-system",
     "https://github.com/jhaimecando27/ts-simulation",
   ]
-docuLinks: ["EnhancementOfTabuSearchAlgorithmOptimizedForRescueOperation"]
+docuLinks: ["/docs/EnhancementOfTabuSearchAlgorithmOptimizedForRescueOperation.pdf"]
 demoLinks: []
 figmaLinks:
   [

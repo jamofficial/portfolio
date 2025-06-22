@@ -6,7 +6,7 @@ endDate: ""
 description: "A web-based class schedule and faculty loading system for the Computer Science Department of Pamantasan ng Lungsod ng Maynila, proposed by JAVAwokeez team."
 roles: ["Back-End Developer"]
 tags: ["Web Development", "ExpressJS", "NodeJS", "ERD", "BootStrap", "Github"]
-githubLinks: ["https://github.com/jhaimecando27/CGrassPLUS"]
+githubLinks: ["https://github.com/hijacque/class_timetable_web"]
 docuLinks: []
 demoLinks: []
 figmaLinks: []
