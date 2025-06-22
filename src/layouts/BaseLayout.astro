@@ -5,6 +5,7 @@
 
 // Components
 import Footer from "../components/Footer.astro";
+import Analytics from '@vercel/analytics/astro'
 
 // Styles
 import "../styles/global.css";
@@ -43,6 +44,7 @@ const { pageTitle } = Astro.props;
   </head>
 
   <body class="flex min-h-dvh max-w-3xl flex-col justify-between md:m-auto">
+    <Analytics/>
     <slot />
     <Footer />
   </body>
