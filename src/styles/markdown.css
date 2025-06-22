@@ -1,0 +1,48 @@
+/* =================================
+     MARKDOWN CONTAINER
+     ================================= */
+
+.markdown {
+  row-gap: 0 !important;
+}
+
+/* =================================
+     HEADINGS
+     ================================= */
+
+/* First H3 Special Spacing */
+.markdown h3:first-child {
+  margin-top: 32px;
+}
+
+/* Secondary Headings Top Spacing */
+.markdown h3:not(:first-child),
+.markdown h4 {
+  margin-top: 8px;
+}
+
+/* All Headings Bottom Spacing */
+.markdown h3,
+.markdown h4 {
+  margin-bottom: 16px;
+}
+
+/* =================================
+     CONTENT ELEMENTS
+     ================================= */
+
+/* Text Content Bottom Spacing */
+.markdown p,
+.markdown ul {
+  margin-bottom: 16px;
+}
+
+/* =================================
+     LISTS
+     ================================= */
+
+/* List Item Styling */
+.markdown ul li {
+  list-style-type: circle;
+  margin-left: 20px;
+}

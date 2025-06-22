@@ -1,0 +1,54 @@
+---
+// =================================
+// IMPORTS
+// =================================
+
+// Components
+import JamLogo from "./JamLogo.astro";
+
+// =================================
+// PROPS
+// =================================
+
+const { pageTitle } = Astro.props;
+
+// =================================
+// CONFIGURATION
+// =================================
+
+const logoSize = "32";
+const navPages = ["Home", "Projects"];
+const isInNavPages = navPages.includes(pageTitle);
+---
+
+<nav
+  class="flex min-h-[5.6338028dvh] flex-row justify-between px-[16px] py-[8px]"
+>
+  <JamLogo size={logoSize} />
+
+  {
+    isInNavPages ? (
+      <div class="flex flex-row gap-[24px]">
+        <a id="Home" href="/" class="btn">
+          Home
+        </a>
+        <a id="Projects" href="/projects" class="btn">
+          Projects
+        </a>
+      </div>
+    ) : (
+      <button onclick="history.back()" class="btn btn-primary cursor-pointer">
+        Go Back
+      </button>
+    )
+  }
+</nav>
+
+{
+  isInNavPages && (
+    <script define:vars={{ pageTitle }} is:inline>
+      const currNavBtn = document.getElementById(pageTitle);
+      currNavBtn?.classList.add("border-b", "border-accent", "pb-[7px]");
+    </script>
+  )
+}

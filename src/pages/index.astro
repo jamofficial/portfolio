@@ -1,0 +1,336 @@
+---
+// =================================
+// IMPORTS
+// =================================
+
+// Components
+import NavBar from "../components/NavBar.astro";
+import RippleEffect from "../components/RippleEffect.astro";
+import GitHubLogo from "../components/GitHubLogo.astro";
+import WakatimeLogo from "../components/WakatimeLogo.astro";
+
+// Layouts
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Utils
+import getData from "../utils/getData.js";
+
+// =================================
+// CONFIGURATION
+// =================================
+
+const pageTitle = "Home";
+
+// =================================
+// WAKATIME API ENDPOINTS
+// =================================
+
+const wakatimeAnalyticsUrls = {
+  last7Days: {
+    languages:
+      "https://wakatime.com/share/@jhaimecando/bbc10bc9-2ef4-4314-92d3-713b6e1b8fa1.json",
+    categories:
+      "https://wakatime.com/share/@jhaimecando/87675c78-4107-47a7-8fa5-d1f1ae3cd615.json",
+  },
+  allTime: {
+    languages:
+      "https://wakatime.com/share/@jhaimecando/d678fcb8-98e8-468a-b8ce-014a1e159ca7.json",
+    categories:
+      "https://wakatime.com/share/@jhaimecando/d1f844fe-8904-4dd0-8c1f-1952f2750ef0.json",
+    editors:
+      "https://wakatime.com/share/@jhaimecando/136fac5f-f9ad-4155-884f-6fc74c54ee0f.json",
+    os: "https://wakatime.com/share/@jhaimecando/6f7edb3a-2789-4723-8924-ad3bcd0a538f.json",
+  },
+};
+
+// =================================
+// DATA FETCHING
+// =================================
+
+const wakatimeAnalyticsData = {
+  last7Days: {
+    languages: await getData(wakatimeAnalyticsUrls.last7Days.languages),
+    categories: await getData(wakatimeAnalyticsUrls.last7Days.categories),
+  },
+  allTime: {
+    languages: await getData(wakatimeAnalyticsUrls.allTime.languages),
+    categories: await getData(wakatimeAnalyticsUrls.allTime.categories),
+    editors: await getData(wakatimeAnalyticsUrls.allTime.editors),
+    os: await getData(wakatimeAnalyticsUrls.allTime.os),
+  },
+};
+
+// =================================
+// DATA PROCESSING
+// =================================
+
+const codingActivity = {
+  last7Days: wakatimeAnalyticsData.last7Days.categories.data.find(
+    (category: any) => category.name === "Coding",
+  ),
+  allTime: wakatimeAnalyticsData.allTime.categories.data.find(
+    (category: any) => category.name === "Coding",
+  ),
+};
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <NavBar pageTitle={pageTitle} />
+  <header>
+    <section class="text-center">
+      <h1 class="mb-[8px]">Jhaime <strong>"Jam"</strong> Cando</h1>
+      <p class="font-accent text-accent mb-[16px] text-sm">
+        Graduating Computer Science
+      </p>
+      <q class="block text-xs">Turning Concepts into Reality</q>
+    </section>
+  </header>
+
+  <main>
+    <!-- START 1st Section -->
+    <section class="flex flex-row gap-x-[16px]">
+      <a href="/docs/Resume.pdf" class="btn btn-primary" download
+        >Download Resume</a
+      >
+      <a href="https://github.com/jhaimecando27"><GitHubLogo /></a>
+      <a href="https://wakatime.com/@jhaimecando"><WakatimeLogo /></a>
+    </section>
+    <!-- END 1st Section -->
+
+    <!-- Start 2nd Section -->
+    <section>
+      <p>
+        Results-driven developer who loves exploring new technologies to build
+        real solutions. Ready to bring my proven project experience and
+        enthusiasm for learning to a software development role.
+      </p>
+    </section>
+    <!-- END 2nd Section -->
+
+    <!-- START 3nd Section -->
+    <section class="flex flex-col gap-y-[24px]">
+      <div>
+        <h2 class="mb-[8px]">Development Analytics</h2>
+        <details class="cursor-help" open>
+          <summary>What is this?</summary>
+          <p>
+            Live data from WakaTime, showing my top coding stats by project,
+            editor, and language. Hover/Click items to see total hours.
+            <a
+              href="https://wakatime.com/@jhaimecando"
+              class="text-accent hover:text-accent-dim cursor-pointer"
+            >
+              View full profile for more.
+            </a>
+          </p>
+        </details>
+      </div>
+
+      <!-- START Languages Used -->
+      <section>
+        <h3 class="mb-[16px]">Languages Used</h3>
+
+        <section class="mb-[24px]">
+          <h4>Last 7 Days</h4>
+          <ul class="">
+            {
+              wakatimeAnalyticsData.last7Days.languages.data
+                .slice(0, 4)
+                .map((lang: any) => (
+                  <li>
+                    <div>
+                      <div>
+                        <p>{lang.name}</p>
+                      </div>
+                      <div class="back">
+                        <p>{lang.hours} hours</p>
+                      </div>
+                    </div>
+                    <RippleEffect />
+                  </li>
+                ))
+            }
+          </ul>
+        </section>
+
+        <section>
+          <h4>All Time</h4>
+          <ul>
+            {
+              wakatimeAnalyticsData.allTime.languages.data
+                .slice(0, 4)
+                .map((lang: any) => (
+                  <li>
+                    <div>
+                      <div>
+                        <p>{lang.name}</p>
+                      </div>
+                      <div>
+                        <p>{lang.hours} hours</p>
+                      </div>
+                    </div>
+                    <RippleEffect />
+                  </li>
+                ))
+            }
+          </ul>
+        </section>
+      </section>
+      <!-- END Languages Used -->
+
+      <!-- START Coding Activity -->
+      <section>
+        <h3>Coding Activity</h3>
+        <ul>
+          <li>
+            <div>
+              <div>
+                <p>Last 7 Days</p>
+              </div>
+              <div>
+                <p>{codingActivity.last7Days.hours} hours</p>
+              </div>
+            </div>
+            <RippleEffect />
+          </li>
+
+          <li>
+            <div>
+              <div>
+                <p>All Time</p>
+              </div>
+              <div>
+                <p>{codingActivity.allTime.hours} hours</p>
+              </div>
+            </div>
+            <RippleEffect />
+          </li>
+        </ul>
+      </section>
+      <!-- END Coding Activity -->
+
+      <!-- START Other Tools Used -->
+      <section>
+        <h3>Other Tools Used</h3>
+        <ul>
+          <li>
+            <div>
+              <div>
+                <p>{wakatimeAnalyticsData.allTime.editors.data[0].name}</p>
+              </div>
+              <div>
+                <p>
+                  {wakatimeAnalyticsData.allTime.editors.data[0].hours} hours
+                </p>
+              </div>
+            </div>
+            <RippleEffect />
+          </li>
+
+          <li>
+            <div>
+              <div>
+                <p>{wakatimeAnalyticsData.allTime.os.data[0].name}</p>
+              </div>
+              <div>
+                <p>{wakatimeAnalyticsData.allTime.os.data[0].hours} hours</p>
+              </div>
+            </div>
+            <RippleEffect />
+          </li>
+        </ul>
+      </section>
+      <!-- END Other Tools Used -->
+    </section>
+    <!-- END 3nd Section -->
+
+    <!-- Start 4th Section -->
+    <section class="flex flex-row justify-between gap-[16px] text-center">
+      <a
+        href="https://www.linkedin.com/in/jhaime/"
+        class="btn btn-primary w-screen"
+        target="_blank">LinkedIn</a
+      >
+      <a
+        href="mailto:jhaimecando18@gmail.com"
+        class="btn btn-primary w-screen"
+        target="_blank">Email</a
+      >
+    </section>
+    <!-- END 4th Section -->
+  </main>
+</BaseLayout>
+
+<style>
+  /* =================================
+     TYPOGRAPHY
+     ================================= */
+  h3,
+  h4 {
+    margin-bottom: 16px;
+  }
+
+  /* =================================
+     LAYOUT COMPONENTS
+     ================================= */
+
+  /* Grid Layout */
+  ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  /* =================================
+     LIST ITEMS
+     ================================= */
+
+  /* Base List Item Styles */
+  li {
+    position: relative;
+    font-size: var(--text-sm);
+    padding: 12px 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 16px;
+    align-items: center;
+    background-color: var(--color-secondary);
+    border-radius: 8px;
+  }
+
+  /* List Item Hover State */
+  li:hover {
+    background-color: transparent;
+    padding: 10px 22px;
+    border: 2px solid var(--color-secondary);
+  }
+
+  /* =================================
+     3D FLIP CARD ANIMATION
+     ================================= */
+
+  /* Container Div Setup */
+  li div {
+    width: 100%;
+    transform-style: preserve-3d;
+  }
+
+  /* 3D Flip Trigger */
+  li:hover > div {
+    transform: rotateY(180deg);
+  }
+
+  /* Flip Card Face Visibility */
+  li div div:first-child,
+  li div div:last-child {
+    backface-visibility: hidden;
+  }
+
+  /* Back Face Positioning */
+  li div div:last-child {
+    position: absolute;
+    top: 0;
+    transform: rotateY(180deg);
+  }
+</style>

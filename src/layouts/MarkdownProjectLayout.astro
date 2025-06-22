@@ -1,0 +1,129 @@
+---
+// =================================
+// IMPORTS
+// =================================
+
+// Components
+import NavBar from "../components/NavBar.astro";
+import GitHubLogo from "../components/GitHubLogo.astro";
+
+// Layouts
+import BaseLayout from "./BaseLayout.astro";
+
+// Styles
+import "../styles/markdown.css";
+
+// =================================
+// PROPS
+// =================================
+
+const { frontmatter } = Astro.props;
+
+// =================================
+// CONFIGURATION
+// =================================
+
+const pageTitle = frontmatter.title;
+const showDate = frontmatter.startDate ? true : false;
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <NavBar pageTitle={pageTitle} />
+  <header class="">
+    <h2>{frontmatter.title}</h2>
+    {
+      showDate && (
+        <p class="font-accent text-dim mt-[8px] text-xs">
+          {frontmatter.startDate} - {frontmatter.endDate}
+        </p>
+      )
+    }
+    <p class="mt-[16px] text-xs">{frontmatter.description}</p>
+
+    <ul class="tags mt-[16px]">
+      {frontmatter.roles.map((role: string) => <li class="role">{role}</li>)}
+
+      {frontmatter.tags.map((tag: string) => <li class="tag">{tag}</li>)}
+    </ul>
+
+    <div class="mt-[24px] flex flex-row gap-[24px]">
+      {
+        frontmatter.githubLinks.map((githubLink: string) => (
+          <a href={githubLink} target="_blank">
+            <GitHubLogo height="24px" />
+          </a>
+        ))
+      }
+
+      {
+        frontmatter.docuLinks.map((docuLink: string) => (
+          <a href={docuLink} download>
+            <svg
+              width="25"
+              height="24"
+              viewBox="0 0 25 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12.5 0C19.1274 0 24.5 5.37258 24.5 12C24.5 18.6274 19.1274 24 12.5 24C5.87258 24 0.5 18.6274 0.5 12C0.5 5.37258 5.87258 0 12.5 0ZM6.5 4V19H17.5V8L13.5 4H6.5Z"
+                fill="white"
+              />
+              <rect x="8.5" y="7" width="4" height="1" rx="0.5" fill="white" />
+              <rect x="8.5" y="9" width="6" height="1" rx="0.5" fill="white" />
+              <rect x="8.5" y="11" width="7" height="1" rx="0.5" fill="white" />
+              <rect x="8.5" y="13" width="7" height="1" rx="0.5" fill="white" />
+              <rect x="8.5" y="15" width="7" height="1" rx="0.5" fill="white" />
+              <path
+                d="M15.5 4L17.5 14L14.5 6C15.1129 5.69357 15.5 5.06717 15.5 4.38197V4Z"
+                fill="white"
+              />
+            </svg>
+          </a>
+        ))
+      }
+
+      {
+        frontmatter.demoLinks.map((demoLink: string) => (
+          <a href={demoLink} target="_blank">
+            <svg
+              width="25"
+              height="24"
+              viewBox="0 0 25 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12.5 0C19.1274 0 24.5 5.37258 24.5 12C24.5 18.6274 19.1274 24 12.5 24C5.87258 24 0.5 18.6274 0.5 12C0.5 5.37258 5.87258 0 12.5 0ZM8.5 18.9277L20.5 12L8.5 5.07227V18.9277Z"
+                fill="white"
+              />
+            </svg>
+          </a>
+        ))
+      }
+
+      {
+        frontmatter.figmaLinks.map((figmaLink: string) => (
+          <a href={figmaLink} target="_blank">
+            <svg
+              width="25"
+              height="24"
+              viewBox="0 0 25 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12.5 0C19.1274 0 24.5 5.37258 24.5 12C24.5 18.6274 19.1274 24 12.5 24C5.87258 24 0.5 18.6274 0.5 12C0.5 5.37258 5.87258 0 12.5 0ZM10.4619 4C8.82606 4.00023 7.5 5.42223 7.5 7.17578C7.50014 8.29066 8.03671 9.27147 8.84766 9.83789C8.03661 10.4044 7.50001 11.385 7.5 12.5C7.5 13.615 8.03663 14.5956 8.84766 15.1621C8.03674 15.7285 7.50014 16.7094 7.5 17.8242C7.5 19.5815 8.84298 20.9999 10.4756 21C12.1231 21 13.4784 19.5691 13.4785 17.7959V14.8379C14.006 15.358 14.7102 15.6757 15.4834 15.6758H15.5381C17.1739 15.6756 18.5 14.2536 18.5 12.5C18.5 11.385 17.9634 10.4044 17.1523 9.83789C17.9633 9.27147 18.4999 8.29066 18.5 7.17578C18.5 5.42223 17.1739 4.00023 15.5381 4H10.4619ZM12.5215 15.6758V17.7959C12.5214 18.9952 11.6012 19.9736 10.4756 19.9736C9.36491 19.9735 8.45703 19.0076 8.45703 17.8242C8.45725 16.64 9.35117 15.6799 10.4551 15.6758H12.5215ZM12.5215 10.3506V14.6494H10.4551C9.35104 14.6452 8.45703 13.6844 8.45703 12.5C8.45705 11.3131 9.35472 10.3508 10.4619 10.3506H12.5215ZM15.5381 10.3506C16.6453 10.3508 17.543 11.3131 17.543 12.5C17.543 13.6869 16.6453 14.6492 15.5381 14.6494H15.4834C14.3762 14.6492 13.4785 13.6869 13.4785 12.5C13.4785 11.3131 14.3762 10.3508 15.4834 10.3506H15.5381ZM12.5215 9.32422H10.4619C9.35484 9.32399 8.45725 8.36247 8.45703 7.17578C8.45703 5.9889 9.35471 5.02659 10.4619 5.02637H12.5215V9.32422ZM15.5381 5.02637C16.6453 5.02659 17.543 5.9889 17.543 7.17578C17.5427 8.36247 16.6452 9.32399 15.5381 9.32422H13.4785V5.02637H15.5381Z"
+                fill="white"
+              />
+            </svg>
+          </a>
+        ))
+      }
+    </div>
+  </header>
+
+  <main class="markdown">
+    <slot />
+  </main>
+</BaseLayout>

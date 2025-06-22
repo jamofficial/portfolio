@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+/* =================================
+   CSS CUSTOM PROPERTIES
+   ================================= */
+
+:root {
+  /* Color Palette */
+  --color-text: #ffffff;
+  --color-text-dim: #3d3d3d;
+  --color-background: #1a1a1a;
+  --color-primary: #0f2027;
+  --color-secondary: #3d3d3d;
+  --color-accent: #f2c94c;
+  --color-accent-dim: #d4654a;
+  --color-error: #8b171a;
+  --color-success: #74a12e;
+}
+
+/* =================================
+   TAILWIND THEME CONFIGURATION
+   ================================= */
+
+@theme {
+  /* Typography */
+  --default-font-family: Inter;
+  --font-accent: Montserrat;
+  --font-display: "Playfair Display";
+
+  /* Colors */
+  --color-accent: var(--color-accent);
+  --color-accent-dim: var(--color-accent-dim);
+  --color-dim: var(--color-text-dim);
+}
+
+/* =================================
+   BASE ELEMENTS
+   ================================= */
+
+/* Document Body */
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+/* =================================
+   TYPOGRAPHY
+   ================================= */
+
+/* Heading Styles */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+/* Heading Sizes */
+h1 {
+  font-size: var(--text-3xl);
+}
+
+h2 {
+  font-size: var(--text-2xl);
+}
+
+h3 {
+  font-size: var(--text-xl);
+}
+
+h4 {
+  font-size: var(--text-lg);
+}
+
+/* Special Text Elements */
+h1 strong {
+  color: var(--color-accent);
+}
+
+q {
+  font-style: italic;
+  color: var(--color-text-dim);
+}
+
+/* =================================
+   LAYOUT COMPONENTS
+   ================================= */
+
+/* Main Content Area */
+main {
+  margin-inline: 48px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+
+main section:first-child {
+  margin-top: 32px;
+}
+
+/* Header Section */
+header {
+  background-color: var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  min-height: 24.3661972dvh;
+  justify-content: center;
+  padding: 40px 48px 32px 48px;
+}
+
+/* Navigation */
+nav,
+header {
+  background-color: var(--color-primary);
+}
+
+nav a,
+nav {
+  color: var(--color-accent);
+}
+
+/* =================================
+   INTERACTIVE ELEMENTS
+   ================================= */
+
+/* Button Base Styles */
+.btn {
+  font-family: var(--font-role);
+  font-size: var(--text-sm);
+  padding: 8px 24px;
+}
+
+.btn:hover {
+  background-color: var(--color-accent-dim);
+}
+
+/* Primary Button */
+.btn-primary {
+  background-color: var(--color-accent);
+  color: black;
+  border-radius: 24px;
+}
+
+.btn-primary:hover {
+}
+
+/* Details/Summary */
+details {
+  font-size: var(--text-xs);
+}
+
+details summary {
+  color: var(--color-accent);
+  font-family: var(--font-role);
+}
+
+/* =================================
+   TAG SYSTEM
+   ================================= */
+
+/* Tag Container */
+.tags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Tag Base Styles */
+.tags li {
+  font-size: var(--text-xs);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  padding: 4px 8px;
+}
+
+/* Tag Variants */
+.role {
+  color: white;
+  background-color: var(--color-background);
+}
+
+.tag {
+  color: #012522;
+  background-color: var(--color-secondary);
+}
