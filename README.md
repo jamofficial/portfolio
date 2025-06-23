@@ -1,47 +1,24 @@
-# Astro Starter Kit: Minimal
+[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:contact.jhaime@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jhaime/)
+[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://jhaime.vercel.app)
 
-```sh
-npm create astro@latest -- --template minimal
-```
+## 👋 About Me
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+Results-driven Graduating Computer Science student at Pamantasan ng Lungsod ng Maynila with a foundation in full-stack development and algorithm optimization. I'm passionate about exploring new technologies and solving complex problems through creative programming solutions.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🚀 Stats
 
-## 🚀 Project Structure
+<details>
+<summary>Github Stats</summary>
+    <img align="top" src="https://github-readme-stats.vercel.app/api?username=jhaimecando27&show_icons=true&theme=tokyonight">
+    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=jhaimecando27&show_icons=true&theme=tokyonight">
+</details>
 
-Inside of your Astro project, you'll see the following folders and files:
+<details>
+    <summary>Wakatime Stats</summary>
+    <img src="https://wakatime.com/share/@jhaimecando/d34c5bf6-f191-45d2-b69f-4bf8598d4c98.png" />
+    <img src="https://wakatime.com/share/@jhaimecando/782ea767-0dc2-4564-b3bb-4e008a358cc3.png" alt="Languages Used"/>
+    <img src="https://wakatime.com/share/@jhaimecando/a3094dac-c126-46b3-903c-816ef418bb6a.png" alt="Editor Usage"/>
+</details>
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+--- 
