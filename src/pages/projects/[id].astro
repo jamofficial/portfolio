@@ -2,62 +2,100 @@
 // =================================
 // IMPORTS
 // =================================
-
-// Components
-import NavBar from "../components/NavBar.astro";
-import GitHubLogo from "../components/GitHubLogo.astro";
-
 // Layouts
-import BaseLayout from "./BaseLayout.astro";
-
+import BaseLayout from "../../layouts/BaseLayout.astro";
+// Components
+import NavBar from "../../components/NavBar.astro";
+import GitHubLogo from "../../components/GitHubLogo.astro";
+// Libraries
+import { marked } from "marked";
+// Database
+import { supabase } from "../../db/supabase";
 // Styles
-import "../styles/markdown.css";
+import "../../styles/markdown.css";
 
 // =================================
-// PROPS
+// STATIC PATH GENERATION
 // =================================
+export async function getStaticPaths() {
+  const { data: projects } = await supabase.from("Projects").select("id");
 
-const { frontmatter } = Astro.props;
+  const paths = projects.map((project) => ({
+    params: {
+      id: project.id,
+    },
+  }));
+
+  return paths;
+}
 
 // =================================
 // CONFIGURATION
 // =================================
+const { id } = Astro.params;
 
-const pageTitle = frontmatter.title;
-const showDate = frontmatter.startDate ? true : false;
+// =================================
+// DATA COLLECTION
+// =================================
+// Fetch project details
+const { data: project } = await supabase
+  .from("Projects")
+  .select(
+    `id, name, start_date, end_date, description, content, github_link, docu_link, demo_link, figma_link`,
+  )
+  .eq("id", id)
+  .single();
+
+// Fetch and sort project tags
+let { data: tags } = await supabase
+  .from("Project_Tags")
+  .select("Projects(id), Tags(name, type, Tag_Type(name))")
+  .eq("project_id", id);
+
+tags = tags?.sort((a, b) => a.Tags.type - b.Tags.type);
+
+// =================================
+// CONTENT PROCESSING
+// =================================
+const markdown = project.content;
+const content = marked.parse(markdown);
+const pageTitle = project.name;
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <NavBar pageTitle={pageTitle} />
-  <header class="">
-    <h2>{frontmatter.title}</h2>
+  <NavBar />
+  <header>
+    <h2>{project.name}</h2>
     {
-      showDate && (
+      project.start_date && (
         <p class="font-accent text-dim mt-[8px] text-xs">
-          {frontmatter.startDate} - {frontmatter.endDate}
+          {project.start_date} - {project.end_date}
         </p>
       )
     }
-    <p class="mt-[16px] text-xs">{frontmatter.description}</p>
+    <p class="mt-[16px] text-xs">{project.description}</p>
 
     <ul class="tags mt-[16px]">
-      {frontmatter.roles.map((role: string) => <li class="role">{role}</li>)}
-
-      {frontmatter.tags.map((tag: string) => <li class="tag">{tag}</li>)}
+      {
+        tags &&
+          tags.map((tag) => (
+            <li class={tag.Tags.Tag_Type.name}>{tag.Tags.name}</li>
+          ))
+      }
     </ul>
 
     <div class="mt-[24px] flex flex-row gap-[24px]">
       {
-        frontmatter.githubLinks.map((githubLink: string) => (
-          <a href={githubLink} target="_blank">
+        project.github_link && (
+          <a href={project.github_link} target="_blank">
             <GitHubLogo height="24px" />
           </a>
-        ))
+        )
       }
 
       {
-        frontmatter.docuLinks.map((docuLink: string) => (
-          <a href={docuLink} download>
+        project.docu_link && (
+          <a href={project.docu_link} target="_blank">
             <svg
               width="25"
               height="24"
@@ -80,12 +118,12 @@ const showDate = frontmatter.startDate ? true : false;
               />
             </svg>
           </a>
-        ))
+        )
       }
 
       {
-        frontmatter.demoLinks.map((demoLink: string) => (
-          <a href={demoLink} target="_blank">
+        project.demo_link && (
+          <a href={project.demo_link} target="_blank">
             <svg
               width="25"
               height="24"
@@ -99,12 +137,12 @@ const showDate = frontmatter.startDate ? true : false;
               />
             </svg>
           </a>
-        ))
+        )
       }
 
       {
-        frontmatter.figmaLinks.map((figmaLink: string) => (
-          <a href={figmaLink} target="_blank">
+        project.figma_link && (
+          <a href={project.figma_link} target="_blank">
             <svg
               width="25"
               height="24"
@@ -118,12 +156,12 @@ const showDate = frontmatter.startDate ? true : false;
               />
             </svg>
           </a>
-        ))
+        )
       }
     </div>
   </header>
 
-  <main class="markdown">
+  <main class="markdown" set:html={content}>
     <slot />
   </main>
 </BaseLayout>
