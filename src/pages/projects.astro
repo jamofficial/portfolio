@@ -2,33 +2,27 @@
 // =================================
 // IMPORTS
 // =================================
-// Layouts
-import BaseLayout from "../layouts/BaseLayout.astro";
+
 // Components
 import NavBar from "../components/NavBar.astro";
 import RippleEffect from "../components/RippleEffect.astro";
-// Database
-import { supabase } from "../db/supabase";
+
+// Layouts
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 // =================================
 // CONFIGURATION
 // =================================
+
 const pageTitle = "Projects";
 
 // =================================
 // DATA COLLECTION
 // =================================
-// Fetch projects data
-const { data: projects } = await supabase
-  .from("Projects")
-  .select("id, name, start_date, end_date");
 
-// Fetch and sort tags data
-let { data: tags } = await supabase
-  .from("Project_Tags")
-  .select(`Projects(id), Tags(name, type, Tag_Type(id, name))`);
-
-tags = tags?.sort((a, b) => a.Tags.type - b.Tags.type);
+const allProjects = Object.values(
+  import.meta.glob("./projects/*.md", { eager: true }),
+);
 ---
 
 <BaseLayout pageTitle={pageTitle}>
@@ -47,32 +41,32 @@ tags = tags?.sort((a, b) => a.Tags.type - b.Tags.type);
 
   <main>
     {
-      projects &&
-        projects.map((project: any) => (
-          <section class="flex flex-col rounded-[8px] bg-(--color-background) shadow-[0_4px_12px_rgba(0,0,0,0.25)]">
-            <div class="flex flex-col gap-[16px] rounded-[8px] bg-[#2D2D2D] p-[16px]">
-              <div class="flex flex-row justify-between">
-                <h4>{project.name}</h4>
-                <RippleEffect />
-              </div>
-              <ul class="tags">
-                {tags &&
-                  tags.map(
-                    (tag) =>
-                      tag.Projects.id == project.id && (
-                        <li class={tag.Tags.Tag_Type.name}>{tag.Tags.name}</li>
-                      ),
-                  )}
-              </ul>
+      allProjects.map((project: any) => (
+        <section class="flex flex-col rounded-[8px] bg-(--color-background) shadow-[0_4px_12px_rgba(0,0,0,0.25)]">
+          <div class="flex flex-col gap-[16px] rounded-[8px] bg-[#2D2D2D] p-[16px]">
+            <div class="flex flex-row justify-between">
+              <h4>{project.frontmatter.title}</h4>
+              <RippleEffect />
             </div>
-            {project.start_date && (
-              <p class="font-accent text-dim py-[8px] text-center text-xs">
-                {project.start_date} - {project.end_date}
-              </p>
-            )}
-            <a href={"projects/" + project.id} />
-          </section>
-        ))
+            <ul class="tags">
+              {project.frontmatter.roles.map((role: string) => (
+                <li class="role">{role}</li>
+              ))}
+
+              {project.frontmatter.tags.map((tag: string) => (
+                <li class="tag">{tag}</li>
+              ))}
+            </ul>
+          </div>
+
+          {project.frontmatter.startDate && (
+            <p class="font-accent text-dim py-[8px] text-center text-xs">
+              {project.frontmatter.startDate} - {project.frontmatter.endDate}
+            </p>
+          )}
+          <a href={project.url} />
+        </section>
+      ))
     }
   </main>
 </BaseLayout>
