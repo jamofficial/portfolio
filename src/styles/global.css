@@ -180,7 +180,12 @@ details summary {
   background-color: var(--color-background);
 }
 
-.tag {
+.tech {
+  color: white;
+  background-color: #012522;
+}
+
+.project_type {
   color: #012522;
   background-color: var(--color-secondary);
 }
