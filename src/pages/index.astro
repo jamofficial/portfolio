@@ -8,6 +8,7 @@ import NavBar from "../components/NavBar.astro";
 import RippleEffect from "../components/RippleEffect.astro";
 import GitHubLogo from "../components/GitHubLogo.astro";
 import WakatimeLogo from "../components/WakatimeLogo.astro";
+import WIP from "../components/WIP.astro";
 
 // Layouts
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -89,13 +90,12 @@ const codingActivity = {
   <main>
     <!-- START 1st Section -->
     <section class="flex flex-row gap-x-[16px]">
-      <a
-        href="https://mpdpjddphxkpmpbfzqjg.supabase.co/storage/v1/object/public/docs//Resume.pdf"
-        class="btn btn-primary"
-        target="_blank">Download Resume</a
+      <a href="/docs/Resume.pdf" class="btn btn-primary" download
+        >Resume</a
       >
       <a href="https://github.com/jhaimecando27"><GitHubLogo /></a>
       <a href="https://wakatime.com/@jhaimecando"><WakatimeLogo /></a>
+      <a href="https://smolpotato.notion.site/Jam-s-Projects-in-Progress-22545238576380d09059f0f3e6d2595b?source=copy_link" target="_blank"><WIP /></a>
     </section>
     <!-- END 1st Section -->
 
